@@ -1,0 +1,23 @@
+{
+  "name": "bus-app",
+  "version": "0.0.1",
+  "description": "demo app for LTA challenge",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+				"start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kennethlimcp/bus-app.git"
+  },
+  "author": "Kenneth Lim",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kennethlimcp/bus-app/issues"
+  },
+  "homepage": "https://github.com/kennethlimcp/bus-app",
+  "dependencies": {
+    "express": "^4.13.4"
+  }
+}
