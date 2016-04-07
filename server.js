@@ -17,16 +17,26 @@ app.post('/', function(req, res){
 	if(Object.keys(reqBodyData).length == 0)
 		console.log("received an empty request!");
 	else {
-		busList = Object.keys(reqBodyData);
-		for(bus in busList){
-			busNumber = busList[bus];
+		var busList = Object.keys(reqBodyData);
+		var busStopId = reqBodyData["busStopId"];
 
-			if(busCountJson.hasOwnProperty(busNumber))
-				busCountJson[busNumber] += 1;
-			else{
-				busCountJson[busNumber] = 1;
+		console.log("busStopID", busStopId);
+		if(!busCountJson.hasOwnProperty(busStopId))
+			busCountJson[busStopId] = {};
+
+			var currentBusStopJson = busCountJson[busStopId];
+			var busStopBusJson = {};
+
+		busList.forEach(function(bus){
+			if(bus !== "busStopId"){
+				if(currentBusStopJson.hasOwnProperty(bus))
+					currentBusStopJson[bus] += 1;
+				else{
+					currentBusStopJson[bus] = 1;
+				}
 			}
-		}
+		});
+
 		console.log("new req: ",busCountJson);
 	}
 });
@@ -35,7 +45,7 @@ app.post('/', function(req, res){
 app.get('/pubip', function(req, res){
 	var response = [];
 	var networkInterfaces = os.networkInterfaces();
-	
+
 	nwInterfaces = Object.keys(networkInterfaces);
 	//console.log(Object.keys(networkInterfaces));
 	for(i=0;i< nwInterfaces.length;i++){
@@ -56,6 +66,7 @@ app.get('/pubip', function(req, res){
 
 app.get('/buscount', function(req, res){
 	res.json(busCountJson);
+	console.log("new busCount req");
 });
 
 app.get('/clearallthebuscounter', function(req, res){
