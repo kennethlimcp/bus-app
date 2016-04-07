@@ -9,11 +9,28 @@
 	<link rel="stylesheet" type="text/css" href="bootstrap/css/custom.css">
 </head>
 <body>
-<div class="container">
 	<h2 align="center">Select your bus requirements below.</h2>
 	<form action="/" method="post">
+		<div class="container">
+			<div class="container btn-block" align="center">
+			<label class="btn btn-default">
+				<input type="radio" name="busStopId" value="bus-stop-123456" checked> 123456
+			</label>
+			<label class="btn btn-default">
+				<input type="radio" name="busStopId" value="bus-stop-888888"> 888888
+			</label>
+			<label class="btn btn-default">
+				<input type="radio" name="busStopId" value="bus-stop-141343" > 141343
+			</label>
+			<label class="btn btn-default">
+				<input type="radio" name="busStopId" value="bus-stop-764675" > 764675
+			</label>
+			<label class="btn btn-default">
+				<input type="radio" name="busStopId" value="bus-stop-276735" > 276735
+			</label>
+		</div>
+
 		<div class="btn-group-vertical btn-block" data-toggle="buttons">
-			<input type="hidden" name="busStopId" value="bus-stop-123456">
 			<label class="btn btn-default btn-lg active">
 				<input type="checkbox" name="bus-05" value="05" checked> Bus 05
 			</label>
