@@ -1,7 +1,7 @@
 var express = require('express')
 var app = express();
 var bodyParser = require('body-parser');
-var networkInterfaces = require('os').networkInterfaces();
+var os = require('os');
 
 
 var busCountJson = {};
@@ -34,6 +34,8 @@ app.post('/', function(req, res){
 //this will return us the n/w reacheable address
 app.get('/pubip', function(req, res){
 	var response = [];
+	var networkInterfaces = os.networkInterfaces();
+	
 	nwInterfaces = Object.keys(networkInterfaces);
 	//console.log(Object.keys(networkInterfaces));
 	for(i=0;i< nwInterfaces.length;i++){
