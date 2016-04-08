@@ -3,25 +3,28 @@ var app = express();
 var bodyParser = require('body-parser');
 var os = require('os');
 
+// get an instance of router
+var removeRouter = express.Router();
 
 var busCountJson = {
 	"bus-stop-123456":
-		{
-			"bus-05":1,
-			"bus-12":1,
-			"bus-24":1
-		},
+	{
+		"bus-05":1,
+		"bus-12":1,
+		"bus-24":1
+	},
 	"bus-stop-888888":
-		{
-				"bus-05":1,
-				"bus-12":1,
-				"bus-24":1
-			}
-		};
+	{
+		"bus-05":1,
+		"bus-12":1,
+		"bus-24":1
+	}
+};
 
 // instruct the app to use the `bodyParser()` middleware for all routes
-app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname));
+app.use('/remove',removeRouter);
 
 app.post('/', function(req, res){
  res.redirect('/thankyou.html');
@@ -100,44 +103,56 @@ app.get('/buscount/:busstop', function(req, res){
 		res.send("invalid bus stop");
 });
 
-app.get('/remove/:busStop', function(req, res){
-	reqBusStop = req.params.busStop;
-
-	if(busCountJson.hasOwnProperty(reqBusStop)){
-		res.send(reqBusStop + " is removed");
-		delete busCountJson[reqBusStop];
-		console.log(reqBusStop + " is removed");
-	}
-	else {
-		res.send("bus stop not found");
-		console.log("bus stop not found");
-	}
-});
-
-app.get('/remove/:busStop/:busID', function(req, res){
-	reqBusStop = req.params.busStop;
-	reqBus = req.params.busID;
-
-	if(busCountJson.hasOwnProperty(reqBusStop)){
-		if(busCountJson[reqBusStop].hasOwnProperty(reqBus)){
-			res.send(req.params.busID + " is removed");
-			delete busCountJson[reqBusStop][reqBus];
-		}
-		else {
-			res.send("bus is not found");
-			console.log("bus is not found");
-		}
-	}
-	else {
-		res.send("bus stop is not found");
-		console.log("bus stop is not found");
-	}
-});
-
-app.get('/clearallthebuscounter', function(req, res){
+app.get('/clearall', function(req, res){
 	busCountJson = {};
 	res.send(busCountJson);
-	console.log("busCount is cleared");
+	console.log("bus data is cleared");
+});
+
+// check for the 'bus_stop' param only for /remove route
+removeRouter.param('bus_stop', function(req, res, next, bus_stop) {
+	var reqBusStop = req.params.bus_stop;
+	console.log(reqBusStop);
+
+	if(!busCountJson.hasOwnProperty(reqBusStop)) {
+			res.send("bus stop not found");
+			console.log("bus stop not found");
+	}
+	else {
+	 req.bus_stop = bus_stop;
+  next();
+	}
+});
+
+// check for the 'bus' param only for /remove route
+removeRouter.param('bus', function(req, res, next, bus) {
+	var reqBus = req.params.bus;
+
+	if(!busCountJson[req.bus_stop].hasOwnProperty(reqBus)) {
+			res.send("bus not found");
+			console.log("bus not found");
+	}
+	else {
+	 req.bus_id = bus;
+  next();
+	}
+});
+
+removeRouter.get('/:bus_stop', function(req, res){
+	var reqBusStop = req.bus_stop;
+
+	res.send(reqBusStop + " is removed");
+	delete busCountJson[reqBusStop];
+	console.log(reqBusStop + " is removed");
+
+});
+
+removeRouter.get('/:bus_stop/:bus', function(req, res){
+	var reqBusStop = req.bus_stop,
+		reqBus = req.bus;
+
+			res.send(reqBus + " is removed");
+			delete busCountJson[reqBusStop][reqBus];
 });
 
 var server = app.listen(80, function () {
