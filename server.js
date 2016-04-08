@@ -4,7 +4,21 @@ var bodyParser = require('body-parser');
 var os = require('os');
 
 
-var busCountJson = {};
+var busCountJson = {
+	"bus-stop-123456":
+		{
+			"bus-05":1,
+			"bus-12":1,
+			"bus-24":1
+		},
+	"bus-stop-888888":
+		{
+				"bus-05":1,
+				"bus-12":1,
+				"bus-24":1
+			}
+		};
+
 // instruct the app to use the `bodyParser()` middleware for all routes
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(express.static(__dirname));
@@ -67,6 +81,25 @@ app.get('/pubip', function(req, res){
 app.get('/buscount', function(req, res){
 	res.json(busCountJson);
 	console.log("new busCount req");
+});
+
+app.get('/busstopid', function(req, res){
+	res.json(Object.keys(busCountJson));
+	console.log("new bus stop req");
+});
+
+app.get('/clearallthebuscounter/:busstopid', function(req, res){
+	reqBusStopID = req.params.busstopid;
+
+	if(busCountJson.hasOwnProperty(reqBusStopID)){
+		res.send("cleared");
+		busCountJson[reqBusStopID] = {};
+		console.log(reqBusStopID + " is cleared");
+	}
+	else {
+		res.send("bus stop not found");
+		console.log("bus stop not found");
+	}
 });
 
 app.get('/clearallthebuscounter', function(req, res){
