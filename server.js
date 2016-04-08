@@ -78,27 +78,59 @@ app.get('/pubip', function(req, res){
 	res.json(response);
 });
 
-app.get('/buscount', function(req, res){
+app.get('/summary', function(req, res){
 	res.json(busCountJson);
 	console.log("new busCount req");
 });
 
-app.get('/busstopid', function(req, res){
+//get a full list of bus stop
+app.get('/busstop', function(req, res){
 	res.json(Object.keys(busCountJson));
 	console.log("new bus stop req");
 });
 
-app.get('/clearallthebuscounter/:busstopid', function(req, res){
-	reqBusStopID = req.params.busstopid;
+//get the bus count for a particular bus stop
+app.get('/buscount/:busstop', function(req, res){
+	reqBusStop = req.params.busstop;
 
-	if(busCountJson.hasOwnProperty(reqBusStopID)){
-		res.send("cleared");
-		busCountJson[reqBusStopID] = {};
-		console.log(reqBusStopID + " is cleared");
+	if(busCountJson.hasOwnProperty(reqBusStop)){
+		res.send(busCountJson[reqBusStop]);
+	}
+	else
+		res.send("invalid bus stop");
+});
+
+app.get('/remove/:busStop', function(req, res){
+	reqBusStop = req.params.busStop;
+
+	if(busCountJson.hasOwnProperty(reqBusStop)){
+		res.send(reqBusStop + " is removed");
+		delete busCountJson[reqBusStop];
+		console.log(reqBusStop + " is removed");
 	}
 	else {
 		res.send("bus stop not found");
 		console.log("bus stop not found");
+	}
+});
+
+app.get('/remove/:busStop/:busID', function(req, res){
+	reqBusStop = req.params.busStop;
+	reqBus = req.params.busID;
+
+	if(busCountJson.hasOwnProperty(reqBusStop)){
+		if(busCountJson[reqBusStop].hasOwnProperty(reqBus)){
+			res.send(req.params.busID + " is removed");
+			delete busCountJson[reqBusStop][reqBus];
+		}
+		else {
+			res.send("bus is not found");
+			console.log("bus is not found");
+		}
+	}
+	else {
+		res.send("bus stop is not found");
+		console.log("bus stop is not found");
 	}
 });
 
