@@ -145,4 +145,4 @@ function mainApp() {
 
 
 openPort();
-var pollBus = setInterval(mainApp, 10000);	//get stats from service
+var pollBus = setInterval(mainApp, 15000);	//get stats from service
