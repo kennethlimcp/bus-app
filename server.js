@@ -7,13 +7,13 @@ var os = require('os');
 var removeRouter = express.Router();
 
 var busCountJson = {
-	"bus-stop-123456":
+	"bus-stop-111111":
 	{
 		"bus-05":1,
 		"bus-12":1,
 		"bus-24":1
 	},
-	"bus-stop-888888":
+	"bus-stop-222222":
 	{
 		"bus-05":1,
 		"bus-12":1,
@@ -92,6 +92,22 @@ app.get('/summary', function(req, res){
 });
 
 //get a full list of bus stop
+app.get('/summary/:bus', function(req, res){
+	//res.json(Object.keys(busCountJson));
+	var resJson = {};
+	var bus = req.params.bus;
+
+	for(busStop in busCountJson){
+		if(busCountJson[busStop].hasOwnProperty(bus)) {
+			resJson[busStop] = busCountJson[busStop][bus];
+		}
+	}
+
+	res.json(resJson);
+	console.log('get bus summary', resJson);
+});
+
+//get a full list of bus stop
 app.get('/busstop', function(req, res){
 	res.json(Object.keys(busCountJson));
 	console.log("new bus stop req");
@@ -108,9 +124,9 @@ app.get('/buscount/:busstop', function(req, res){
 		res.send("invalid bus stop");
 });
 
-app.get('/clearall', function(req, res){
+app.delete('/clearall', function(req, res){
 	busCountJson = {};
-	res.send(busCountJson);
+	res.json(busCountJson);
 	console.log("bus data is cleared");
 });
 
@@ -143,7 +159,7 @@ removeRouter.param('bus', function(req, res, next, bus) {
 	}
 });
 
-removeRouter.get('/:bus_stop', function(req, res){
+removeRouter.delete('/:bus_stop', function(req, res){
 	var reqBusStop = req.bus_stop;
 
 	res.send(reqBusStop + " is removed");
@@ -152,7 +168,7 @@ removeRouter.get('/:bus_stop', function(req, res){
 
 });
 
-removeRouter.get('/:bus_stop/:bus', function(req, res){
+removeRouter.delete('/:bus_stop/:bus', function(req, res){
 	var reqBusStop = req.bus_stop,
 		reqBus = req.bus;
 
