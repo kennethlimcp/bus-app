@@ -1,0 +1,18 @@
+{
+  "name": "bus-app-client",
+  "version": "0.0.1",
+  "description": "client that consumes bus-app data",
+  "main": "client.js",
+  "dependencies": {
+    "lodash": "^4.10.0",
+    "request": "^2.71.0",
+    "serialport": "^2.1.0",
+    "when": "^3.7.7"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
