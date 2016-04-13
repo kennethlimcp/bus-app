@@ -52,7 +52,7 @@ app.post('/', function(req, res){
 		busList.forEach(function(bus){
 			if(bus !== "busStopId"){
 				if(currentBusStopJson.hasOwnProperty(bus))
-					currentBusStopJson[bus] += 1;
+					currentBusStopJson[bus] += 12;
 				else{
 					currentBusStopJson[bus] = 1;
 				}
