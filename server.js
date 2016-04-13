@@ -24,6 +24,11 @@ var busCountJson = {
 // instruct the app to use the `bodyParser()` middleware for all routes
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname));
+app.use(function (req, res, next){
+	res.set('X-Powered-By', 'bus app');
+	next();
+});
+
 app.use('/remove',removeRouter);
 
 app.post('/', function(req, res){
@@ -153,6 +158,11 @@ removeRouter.get('/:bus_stop/:bus', function(req, res){
 
 			res.send(reqBus + " is removed");
 			delete busCountJson[reqBusStop][reqBus];
+});
+
+app.get('*', function(req, res) {
+	console.log("invalid request to -",req.originalUrl);
+ res.status(404).json({ error: '404', description: 'invalid url'});
 });
 
 var server = app.listen(80, function () {
