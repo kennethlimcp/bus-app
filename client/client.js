@@ -12,7 +12,7 @@ var portName = '/dev/cu.usbmodem1411';	//local
 //var portName = '/dev/ttyACM0';	//rpi
 
 var dataUrl = 'http://KENMBP.local/'; //local
-//var dataUrl = 'http://bus-stop-local.local/';
+//var dataUrl = 'http://bus-stop-sutd.local/';
 var busData = {};
 
 serialPortLib.list(function (err, ports) {

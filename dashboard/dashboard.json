@@ -148,9 +148,9 @@
 			"name": "buscount",
 			"type": "JSON",
 			"settings": {
-				"url": "http://kenmbp.local/summary",
+				"url": "http://bus-stop-sutd.local/summary",
 				"use_thingproxy": true,
-				"refresh": 5,
+				"refresh": 1,
 				"method": "GET"
 			}
 		}
