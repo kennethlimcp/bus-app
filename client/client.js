@@ -8,8 +8,11 @@ var when = require('when');
 var sequence = require('when/sequence');
 
 
-var portName = '/dev/cu.usbmodem1411';
-var dataUrl = 'http://KENMBP.local/';
+var portName = '/dev/cu.usbmodem1411';	//local
+//var portName = '/dev/ttyACM0';	//rpi
+
+var dataUrl = 'http://KENMBP.local/'; //local
+//var dataUrl = 'http://bus-stop-local.local/';
 var busData = {};
 
 serialPortLib.list(function (err, ports) {
@@ -106,13 +109,24 @@ function writeToPort(data) {
 }
 
 function busDispatchAlgorithm() {
-	if (_.isEmpty(busData)) {
-		writeToPort('express route');
-		console.log('Route 1');
+	//no bus req, run normal route
+	if (_.isEmpty(busData) || busData['bus-stop-111111']) {
+		writeToPort('a');
+		console.log('Route a');
 	}
-	else {
-		writeToPort('normal route');
-		console.log('Route 2');
+	else if (busData['bus-stop-333333']) {
+		if(busData['bus-stop-222222']) {
+			writeToPort('b');
+			console.log('Route b');
+		}
+		else {
+			writeToPort('c');
+			console.log('Route c');
+		}
+	}
+	else if(busData['bus-stop-222222']) {
+		writeToPort('b');
+		console.log('Route b');
 	}
 }
 
