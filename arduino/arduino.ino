@@ -5,8 +5,8 @@ uint8_t numpixelA = 24;
 uint8_t numpixelB = 15;
 uint8_t numpixelC = 17;
 Adafruit_NeoPixel stripA = Adafruit_NeoPixel(numpixelA, 5, NEO_GRB + NEO_KHZ800);
-Adafruit_NeoPixel stripB = Adafruit_NeoPixel(numpixelA, 6, NEO_GRB + NEO_KHZ800);
-Adafruit_NeoPixel stripC = Adafruit_NeoPixel(numpixelA, 7, NEO_GRB + NEO_KHZ800);
+Adafruit_NeoPixel stripB = Adafruit_NeoPixel(numpixelB, 6, NEO_GRB + NEO_KHZ800);
+Adafruit_NeoPixel stripC = Adafruit_NeoPixel(numpixelC, 7, NEO_GRB + NEO_KHZ800);
 
 void setup() {
 	Serial.begin(9600);
