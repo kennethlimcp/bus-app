@@ -13,7 +13,7 @@ With the rising advancement in Autonomous vehicles and the Internet-of-Things, w
 
 Every bus stop will be equipped with an Access-point that aggregates all the on-demand request from the users and forward it to the Smart Bus System (SBS). An optimized bus route will be generated through SBS and the baseline frequency of the regular bus service will be adjusted over time as the historical data accumulates.
 
-This ensures that spikes in demand on a day to day basis can be handled with new routes be designed through Big-Data Analysis of the bus user's demand. We believe that combining new technologies with our existing public transport infrastructure will be about exciting changes that makes the world we live in a better place. 
+This ensures that spikes in demand on a day to day basis can be handled with new routes be designed through Big-Data Analysis of the bus user's demand. We believe that combining new technologies with our existing public transport infrastructure will be about exciting changes that makes the world we live in a better place.
 
 ### Major components
 
@@ -27,5 +27,5 @@ The proof-of-concept demonstrated consists of the following setup:
 - Dashboard mockup using Freeboard
 
 
-15 April 2015  
+15 April 2016  
 kennethlimcp :collision:
